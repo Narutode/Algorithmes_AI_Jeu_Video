@@ -31,9 +31,43 @@ public:
 	unsigned int EnnemyCav;
 	unsigned int EnnemyRan;
 	unsigned int EnemmyPower;
-	list<Action*>* ActionsList;
+	list<Action*>* ActionsList; //à retirer du ws pour les perfs
+
+	WorldState() : Wood(0), Food(0), Inf(0), Cav(0), Ran(0), Power(0),
+		Villager(0), PlaceTotal(0), PlaceLeft(0), EnnemyInf(0), EnnemyCav(0),
+		EnnemyRan(0), EnemmyPower(0), ActionsList(new list<Action*>) {}
+
+	// Constructeur par copie
+	WorldState(const WorldState& other)
+		: Wood(other.Wood), Food(other.Food), Inf(other.Inf), Cav(other.Cav),
+		Ran(other.Ran), Power(other.Power), Villager(other.Villager),
+		PlaceTotal(other.PlaceTotal), PlaceLeft(other.PlaceLeft),
+		EnnemyInf(other.EnnemyInf), EnnemyCav(other.EnnemyCav),
+		EnnemyRan(other.EnnemyRan), EnemmyPower(other.EnemmyPower)
+	{
+		if (other.ActionsList)
+		{
+			ActionsList = new list<Action*>(*(other.ActionsList));
+		}
+		else
+		{
+			ActionsList = new list<Action*>();
+		}
+	}
+
+	// destructeur
+	~WorldState()
+	{
+		delete ActionsList;
+	}
 
 	void init();
+};
+
+
+
+
+
 };
 
 

@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="GOAP.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WorldState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GOAP.h" />
     <ClInclude Include="WorldState.h" />
   </ItemGroup>
   <ItemGroup>
