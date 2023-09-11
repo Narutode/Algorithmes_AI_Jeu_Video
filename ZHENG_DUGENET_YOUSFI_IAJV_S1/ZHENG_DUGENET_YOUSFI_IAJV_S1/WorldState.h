@@ -32,10 +32,11 @@ public:
 	unsigned int EnnemyRan;
 	unsigned int EnemyPower;
 	list<Action*>* ActionsList; //à retirer du ws pour les perfs
+	Action* firstAction;
 
 	WorldState() : Wood(0), Food(0), Inf(0), Cav(0), Ran(0), Power(0),
 		Villager(0), PlaceTotal(0), PlaceLeft(0), EnnemyInf(0), EnnemyCav(0),
-		EnnemyRan(0), EnemyPower(0), ActionsList(new list<Action*>) {}
+		EnnemyRan(0), EnemyPower(0), ActionsList(new list<Action*>), firstAction(nullptr){}
 
 	// Constructeur par copie
 	WorldState(const WorldState& other)
@@ -43,7 +44,7 @@ public:
 		Ran(other.Ran), Power(other.Power), Villager(other.Villager),
 		PlaceTotal(other.PlaceTotal), PlaceLeft(other.PlaceLeft),
 		EnnemyInf(other.EnnemyInf), EnnemyCav(other.EnnemyCav),
-		EnnemyRan(other.EnnemyRan), EnemyPower(other.EnemyPower)
+		EnnemyRan(other.EnnemyRan), EnemyPower(other.EnemyPower), firstAction(other.firstAction)
 	{
 		if (other.ActionsList)
 		{
@@ -63,13 +64,5 @@ public:
 
 	void init();
 	void Execution(const Action action);
+	const bool CheckCondition(const Action action);
 };
-
-
-
-
-
-};
-
-
-

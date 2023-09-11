@@ -72,9 +72,12 @@ void WorldState::init() {
 	effects->clear();
 
 	//Action attack
-	conditions->push_back(new pair<EffectCondition, int>(EC_POW, 0));
+	conditions->push_back(new pair<EffectCondition, int>(EC_INF, EnnemyInf));
+	conditions->push_back(new pair<EffectCondition, int>(EC_RAN, EnnemyRan));
+	conditions->push_back(new pair<EffectCondition, int>(EC_CAV, EnnemyCav));
 	effects->push_back(new pair<EffectCondition, int>(EC_WIN, 1));
 	ActionsList->push_back(new Action("Attack", effects, conditions, 1));
+	firstAction = new Action("Attack", effects, conditions, 1);
 	conditions->clear();
 	effects->clear();
 }
@@ -150,5 +153,35 @@ void WorldState::Execution(const Action action)
 			break;
 		}
 	}
-	
+}
+
+const bool WorldState::CheckCondition(const Action action)
+{
+	for (const pair<EffectCondition, int>* condition : *(action.Conditions))
+	{
+		switch (condition->first) {
+		case EC_FOOD:
+			if (Food < condition->second)
+				return false;
+			break;
+		case EC_WOOD:
+			if(Wood < condition->second)
+				return false;
+			break;
+		case EC_PLACE:
+			if(PlaceLeft < condition->second)
+				return false;
+			break;
+		case EC_VIL:
+			if(Villager < condition->second)
+				return false;
+			break;
+		case EC_POW:
+			if(EnemyPower > Power)
+				return false;
+			break;
+
+		}
+	}
+	return true;
 }

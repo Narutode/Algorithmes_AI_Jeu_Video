@@ -5,10 +5,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WorldState.cpp" />
     <ClCompile Include="GOAP.cpp" />
+    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WorldState.h" />
     <ClInclude Include="Action.h" />
     <ClInclude Include="GOAP.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
 </Project>

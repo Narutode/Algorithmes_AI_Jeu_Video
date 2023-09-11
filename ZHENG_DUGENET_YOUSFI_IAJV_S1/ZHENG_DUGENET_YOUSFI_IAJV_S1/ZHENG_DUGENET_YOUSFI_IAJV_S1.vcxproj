@@ -130,10 +130,12 @@
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="GOAP.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="WorldState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GOAP.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="WorldState.h" />
   </ItemGroup>
   <ItemGroup>
