@@ -18,12 +18,20 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="WorldState.cpp">
+=======
+    <ClCompile Include="Action.cpp">
+>>>>>>> Stashed changes
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <ClInclude Include="WorldState.h">
+=======
+    <ClInclude Include="Action.h">
+>>>>>>> Stashed changes
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
