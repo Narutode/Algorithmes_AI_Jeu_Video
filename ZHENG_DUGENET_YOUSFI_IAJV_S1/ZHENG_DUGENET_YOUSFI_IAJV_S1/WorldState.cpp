@@ -122,34 +122,34 @@ void WorldState::Execution(const Action action)
 		}
 	}
 
-	for (const pair<EffectCondition, int>* condition : *(action.Effects))
+	for (const pair<EffectCondition, int>* effets : *(action.Effects))
 	{
-		switch (condition->first) {
+		switch (effets->first) {
 		case EC_FOOD:
-			Food += condition->second;
+			Food += effets->second;
 			Villager -= 1;
 			break;
 		case EC_WOOD:
-			Wood += condition->second;
+			Wood += effets->second;
 			Villager -= 1;
 			break;
 		case EC_PLACE:
-			PlaceLeft += condition->second;
+			PlaceLeft += effets->second;
 			break;
 		case EC_VIL:
-			Villager += condition->second;
+			Villager += effets->second;
 			break;
 		case EC_WIN:
 			cout << "YOU WINNNNNNNNNNNNNNNNNNNNNNNNNNNNNN" << endl;
 			break;
 		case EC_INF:
-			Inf += condition->second;
+			Inf += effets->second;
 			break;
 		case EC_CAV:
-			Cav += condition->second;
+			Cav += effets->second;
 			break;
 		case EC_RAN:
-			Ran += condition->second;
+			Ran += effets->second;
 			break;
 		}
 	}

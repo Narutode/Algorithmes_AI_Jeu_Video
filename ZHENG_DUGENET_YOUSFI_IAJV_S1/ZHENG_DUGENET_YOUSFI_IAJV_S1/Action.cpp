@@ -9,11 +9,7 @@ list<EffectCondition>* Action::getCconditions()
 	return ;
 }
 
-list<EffectCondition>* Action::getEffects()
+list<pair<EffectCondition, int>*> Action::getEffects()
 {
-	list<EffectCondition>* listEff = new list<EffectCondition>();
-	for (const pair<EffectCondition, int>* effect : *Effects) {
-		listEff->push_back(effect->first);
-	}
-	return;
+	return Effects;
 }
