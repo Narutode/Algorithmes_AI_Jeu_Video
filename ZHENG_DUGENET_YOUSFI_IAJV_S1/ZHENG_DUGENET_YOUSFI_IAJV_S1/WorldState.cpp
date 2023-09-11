@@ -1,4 +1,6 @@
+#include <iostream>
 #include "WorldState.h"
+using namespace std;
 
 void WorldState::init() {
 	Villager += MainVariable::StartNbVillager;
@@ -75,4 +77,78 @@ void WorldState::init() {
 	ActionsList->push_back(new Action("Attack", effects, conditions, 1));
 	conditions->clear();
 	effects->clear();
+}
+void WorldState::Execution(const Action action)
+{
+	bool conditionsSatisfied = true;
+	cout << action.Name << endl;
+	cout << "Nb food = " << Food << endl;
+	cout << "Nb wood = " << Wood << endl;
+	cout << "Nb Inf = " << Inf << endl;
+	cout << "Nb Cav = " << Cav << endl;
+	cout << "Nb Ran = " << Ran << endl;
+	cout << "Power = " << Power << endl;
+	cout << "Nb villager" << Villager << endl;
+	cout << "Place total = " << PlaceTotal << endl;
+	cout << "Place left = " << PlaceLeft << endl;
+	cout << "Nb food = " << Food << endl;
+	cout << "Ennemy Power = " << EnemyPower << endl;
+	for (const pair<EffectCondition, int>* condition : *(action.Conditions))
+	{
+		switch (condition->first) {
+			case EC_FOOD:
+				assert(Food < condition->second);
+				Food -= condition->second;
+				break;
+			case EC_WOOD:
+				assert(Wood < condition->second);
+				Wood -= condition->second;
+				break;
+			case EC_PLACE:
+				assert(PlaceLeft < condition->second);
+				PlaceLeft -= condition->second;
+				break;
+			case EC_VIL:
+				assert(Villager < condition->second);
+				Villager -= condition->second;
+				break;
+			case EC_POW:
+				assert(EnemyPower > Power);
+				break;
+
+		}
+	}
+
+	for (const pair<EffectCondition, int>* condition : *(action.Effects))
+	{
+		switch (condition->first) {
+		case EC_FOOD:
+			Food += condition->second;
+			Villager -= 1;
+			break;
+		case EC_WOOD:
+			Wood += condition->second;
+			Villager -= 1;
+			break;
+		case EC_PLACE:
+			PlaceLeft += condition->second;
+			break;
+		case EC_VIL:
+			Villager += condition->second;
+			break;
+		case EC_WIN:
+			cout << "YOU WINNNNNNNNNNNNNNNNNNNNNNNNNNNNNN" << endl;
+			break;
+		case EC_INF:
+			Inf += condition->second;
+			break;
+		case EC_CAV:
+			Cav += condition->second;
+			break;
+		case EC_RAN:
+			Ran += condition->second;
+			break;
+		}
+	}
+	
 }

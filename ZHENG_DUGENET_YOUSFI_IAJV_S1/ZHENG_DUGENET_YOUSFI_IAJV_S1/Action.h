@@ -21,11 +21,12 @@ enum EffectCondition
 class Action
 {
 	private:
+
+	public:
 		const string Name;
 		const list<pair<EffectCondition, int>*>* Effects;
 		const list<pair<EffectCondition, int>*>* Conditions;
 		const int Cost;
-	public:
 		Action(const string name, const list<pair<EffectCondition, int>*>* effects, const list<pair<EffectCondition, int>*>* conditions, int const cost)
 			: Name(name), Effects(effects), Conditions(conditions), Cost(cost) {};
 };
