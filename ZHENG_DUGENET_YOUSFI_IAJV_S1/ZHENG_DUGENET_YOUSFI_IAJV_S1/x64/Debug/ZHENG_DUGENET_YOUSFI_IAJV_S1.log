@@ -1,2 +1,4 @@
 ﻿  main.cpp
-  ZHENG_DUGENET_YOUSFI_IAJV_S1.vcxproj -> C:\Users\zheng\OneDrive\Documents\GitHub\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\x64\Debug\ZHENG_DUGENET_YOUSFI_IAJV_S1.exe
+C:\Users\zheng\OneDrive\Documents\GitHub\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\main.cpp(2,10): fatal  error C1083: Impossible d'ouvrir le fichier include : 'WorldState.h' : No such file or directory
+  WorldState.cpp
+  Génération de code en cours...
