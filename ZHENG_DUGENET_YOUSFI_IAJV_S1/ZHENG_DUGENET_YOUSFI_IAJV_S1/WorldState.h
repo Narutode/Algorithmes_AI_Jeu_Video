@@ -1,5 +1,10 @@
-
 #include <cassert>
+#include <list>
+#include <utility>
+
+#include "Action.h"
+using namespace std;
+
 namespace MainVariable
 {
 	constexpr int StartNbVillager = 1;
@@ -12,29 +17,23 @@ namespace MainVariable
 }
 class WorldState
 {
+public:
 	unsigned int Wood;
 	unsigned int Food;
 	unsigned int Inf;
 	unsigned int Cav;
 	unsigned int Ran;
+	unsigned int Power;
 	unsigned int Villager;
 	unsigned int PlaceTotal;
-	unsigned int PlaceActually;
+	unsigned int PlaceLeft;
 	unsigned int EnnemyInf;
 	unsigned int EnnemyCav;
 	unsigned int EnnemyRan;
-	void init() {
-		Villager += MainVariable::StartNbVillager;
-		PlaceTotal += MainVariable::StartNbPlace;
-		assert(PlaceTotal<Villager);
-		PlaceActually += MainVariable::StartNbPlace - MainVariable::StartNbVillager;
-		EnnemyInf += MainVariable::StartEnnemiInf;
-		EnnemyCav += MainVariable::StartEnnemiCav;
-		EnnemyRan += MainVariable::StartEnnemiRan;
-		Wood += MainVariable::StartNbWood;
-		Food += MainVariable::StartNbFood;
+	unsigned int EnemmyPower;
+	list<Action*>* ActionsList;
 
-	};
+	void init();
 };
 
 

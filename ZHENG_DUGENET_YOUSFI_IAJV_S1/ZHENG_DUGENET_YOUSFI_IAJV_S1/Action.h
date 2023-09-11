@@ -7,21 +7,25 @@ using namespace std;
 
 enum EffectCondition
 {
-	WOOD,
-	FOOD,
-	PLACE,
-	INF,
-	CAV,
-	RAN
+	EC_WOOD,
+	EC_FOOD,
+	EC_PLACE,
+	EC_INF,
+	EC_CAV,
+	EC_RAN,
+	EC_VIL,
+	EC_POW,
+	EC_WIN
 };
 
 class Action
 {
 	private:
 		const string Name;
-		const list<pair<EffectCondition, unsigned int>> Effects;
-		const list<pair<EffectCondition, unsigned int>> Conditions;
+		const list<pair<EffectCondition, int>*>* Effects;
+		const list<pair<EffectCondition, int>*>* Conditions;
+		const int Cost;
 	public:
-		Action(const string name, const list<pair<EffectCondition, unsigned int>> effects, const list<pair<EffectCondition, unsigned int>> conditions)
-			: Name(name), Effects(effects), Conditions(conditions){}
+		Action(const string name, const list<pair<EffectCondition, int>*>* effects, const list<pair<EffectCondition, int>*>* conditions, int const cost)
+			: Name(name), Effects(effects), Conditions(conditions), Cost(cost) {};
 };
