@@ -3,7 +3,7 @@
 class Node
 {
 	public:
-		const Action* action;
+		Action* action;
 		const Node* prevNode;
 		unsigned int cost;
 		Node(const Action* const act, const Node* const pNode) : action(act), prevNode(pNode), cost(0) {};

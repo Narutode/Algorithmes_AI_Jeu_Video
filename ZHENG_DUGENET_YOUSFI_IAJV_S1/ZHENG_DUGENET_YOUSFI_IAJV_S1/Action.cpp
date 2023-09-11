@@ -1,15 +1,11 @@
 #include "Action.h"
 
-list<EffectCondition>* Action::getCconditions()
+const list<pair<EffectCondition, int>*>* Action::getConditions()
 {
-	list<EffectCondition>* listCond = new list<EffectCondition>();
-	for (const pair<EffectCondition, int>* condition : *Conditions) {
-		listCond->push_back(condition->first);
-	}
-	return ;
+	return Conditions;
 }
 
-list<pair<EffectCondition, int>*> Action::getEffects()
+const list<pair<EffectCondition, int>*>* Action::getEffects()
 {
 	return Effects;
 }
