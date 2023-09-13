@@ -47,7 +47,7 @@ const Node* const GOAP::findBestAction()
     vector<Node*> endNode;
     vector<Node*> openNodes;
     list<EffectCondition> unfulfilledConditions;
-    openNodes.reserve(10000);
+    openNodes.reserve(1000);
     // Initialisez la liste des préconditions non remplies avec les préconditions de la première action
     for (const pair<EffectCondition, unsigned int>* cond : *ws->firstAction->getConditions()) {
         unfulfilledConditions.push_back(cond->first);
@@ -85,7 +85,6 @@ const Node* const GOAP::findBestAction()
         }
         else
         {
-            //currentNode->unfulfilledCount += unCount;
             //On ajoute les actions 
             vector<Action*> parentNodes = currentNode->prevNode;
             parentNodes.push_back(currentNode->action);
@@ -122,13 +121,15 @@ const Node* const GOAP::findBestAction()
         // Évaluez le nombre de préconditions non satisfaites
         unsigned int unfulfilledCount = currentNode->preCondition.size();
 
-        if (unfulfilledCount > getLowestUnfulfilledCount(openNodes)) {
+        if (unfulfilledCount > getLowestUnfulfilledCount(openNodes)) 
+        {
             openNodes.erase(currentNodeIte);
         }
         if (currentNode->preCondition.size()==0)
         {
-            endNode.push_back(currentNode);
-            openNodes.erase(currentNodeIte);
+            return currentNode;
+            //endNode.push_back(currentNode);
+            //openNodes.erase(currentNodeIte);
         }
     }
     return endNode.front();

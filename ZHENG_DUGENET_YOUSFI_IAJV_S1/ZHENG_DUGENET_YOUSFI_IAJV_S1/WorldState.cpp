@@ -95,8 +95,6 @@ void WorldState::init() {
 }
 void WorldState::Execution(const Action* action, bool print)
 {
-	bool conditionsSatisfied = true;
-
 	for (const pair<EffectCondition, unsigned int>* condition : *(action->getConditions()))
 	{
 		switch (condition->first) {
@@ -123,7 +121,7 @@ void WorldState::Execution(const Action* action, bool print)
 				break;
 		}
 	}
-
+	bool win = false;
 	for (const pair<EffectCondition, unsigned int>* effets : *(action->getEffects()))
 	{
 		switch (effets->first) {
@@ -137,12 +135,13 @@ void WorldState::Execution(const Action* action, bool print)
 			break;
 		case EC_PLACE:
 			PlaceLeft += effets->second;
+			PlaceTotal += effets->second;
 			break;
 		case EC_VIL:
 			FreeVillager += effets->second;
 			break;
 		case EC_WIN:
-			cout << "YOU WINNNNNNNNNNNNNNNNNNNNNNNNNNNNNN" << endl;
+			win = true;
 			break;
 		case EC_INF:
 			Inf += effets->second;
@@ -171,8 +170,9 @@ void WorldState::Execution(const Action* action, bool print)
 		cout << "Nb Wood villager = " << WoodVillager << endl;
 		cout << "Place total = " << PlaceTotal << endl;
 		cout << "Place left = " << PlaceLeft << endl;
-		cout << "Nb food = " << Food << endl;
 		cout << "Ennemy Power = " << EnemyPower << endl;
+		if(win)
+			cout << "YOU WIIIIIIIINNNNNNNNNNNNNNNNNNNNN" << endl;
 	}
 }
 
