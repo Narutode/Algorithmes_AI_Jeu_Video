@@ -5,16 +5,6 @@
 #include "Action.h"
 using namespace std;
 
-namespace MainVariable
-{
-	constexpr int StartNbVillager = 1;
-	constexpr int StartNbPlace = 1;
-	constexpr int StartEnnemiInf = 2;
-	constexpr int StartEnnemiCav = 2;
-	constexpr int StartEnnemiRan = 2;
-	constexpr int StartNbWood = 0;
-	constexpr int StartNbFood = 0;
-}
 class WorldState
 {
 public:
@@ -39,16 +29,16 @@ public:
 		EnnemyRan(0), EnemyPower(0), ActionsList(new list<Action*>), firstAction(nullptr){}
 
 	// Constructeur par copie
-	WorldState(const WorldState& other)
-		: Wood(other.Wood), Food(other.Food), Inf(other.Inf), Cav(other.Cav),
-		Ran(other.Ran), Power(other.Power), Villager(other.Villager),
-		PlaceTotal(other.PlaceTotal), PlaceLeft(other.PlaceLeft),
-		EnnemyInf(other.EnnemyInf), EnnemyCav(other.EnnemyCav),
-		EnnemyRan(other.EnnemyRan), EnemyPower(other.EnemyPower), firstAction(other.firstAction)
+	WorldState(const WorldState* other)
+		: Wood(other->Wood), Food(other->Food), Inf(other->Inf), Cav(other->Cav),
+		Ran(other->Ran), Power(other->Power), Villager(other->Villager),
+		PlaceTotal(other->PlaceTotal), PlaceLeft(other->PlaceLeft),
+		EnnemyInf(other->EnnemyInf), EnnemyCav(other->EnnemyCav),
+		EnnemyRan(other->EnnemyRan), EnemyPower(other->EnemyPower), firstAction(other->firstAction)
 	{
-		if (other.ActionsList)
+		if (other->ActionsList)
 		{
-			ActionsList = new list<Action*>(*(other.ActionsList));
+			ActionsList = new list<Action*>(*(other->ActionsList));
 		}
 		else
 		{
@@ -63,7 +53,7 @@ public:
 	}
 
 	void init();
-	void Execution(const Action action);
+	void Execution(const Action* action);
 	const unsigned int CheckAction(const Action action);
 	const bool CheckCondition(const pair<EffectCondition, int>* condition);
 };

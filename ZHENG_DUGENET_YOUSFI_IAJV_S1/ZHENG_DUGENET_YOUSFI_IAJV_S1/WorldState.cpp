@@ -2,6 +2,17 @@
 #include "WorldState.h"
 using namespace std;
 
+namespace MainVariable
+{
+	constexpr int StartNbVillager = 1;
+	constexpr int StartNbPlace = 1;
+	constexpr int StartEnnemiInf = 1;
+	constexpr int StartEnnemiCav = 0;
+	constexpr int StartEnnemiRan = 0;
+	constexpr int StartNbWood = 0;
+	constexpr int StartNbFood = 0;
+}
+
 void WorldState::init() {
 	Villager += MainVariable::StartNbVillager;
 	PlaceTotal += MainVariable::StartNbPlace;
@@ -12,6 +23,7 @@ void WorldState::init() {
 	EnnemyRan += MainVariable::StartEnnemiRan;
 	Wood += MainVariable::StartNbWood;
 	Food += MainVariable::StartNbFood;
+	EnemyPower = EnnemyInf + EnnemyCav + EnnemyRan;
 
 	ActionsList = new list<Action*>();
 	list<pair<EffectCondition, int>*>* effects = new list<pair<EffectCondition, int>*>();
@@ -81,10 +93,10 @@ void WorldState::init() {
 	conditions->clear();
 	effects->clear();
 }
-void WorldState::Execution(const Action action)
+void WorldState::Execution(const Action* action)
 {
 	bool conditionsSatisfied = true;
-	cout << action.Name << endl;
+	cout << action->Name << endl;
 	cout << "Nb food = " << Food << endl;
 	cout << "Nb wood = " << Wood << endl;
 	cout << "Nb Inf = " << Inf << endl;
@@ -96,7 +108,7 @@ void WorldState::Execution(const Action action)
 	cout << "Place left = " << PlaceLeft << endl;
 	cout << "Nb food = " << Food << endl;
 	cout << "Ennemy Power = " << EnemyPower << endl;
-	for (const pair<EffectCondition, int>* condition : *(action.getConditions()))
+	for (const pair<EffectCondition, int>* condition : *(action->getConditions()))
 	{
 		switch (condition->first) {
 			case EC_FOOD:
@@ -118,11 +130,10 @@ void WorldState::Execution(const Action action)
 			case EC_POW:
 				assert(EnemyPower > Power);
 				break;
-
 		}
 	}
 
-	for (const pair<EffectCondition, int>* effets : *(action.getEffects()))
+	for (const pair<EffectCondition, int>* effets : *(action->getEffects()))
 	{
 		switch (effets->first) {
 		case EC_FOOD:
@@ -144,12 +155,15 @@ void WorldState::Execution(const Action action)
 			break;
 		case EC_INF:
 			Inf += effets->second;
+			Power += 1;
 			break;
 		case EC_CAV:
 			Cav += effets->second;
+			Power += 1;
 			break;
 		case EC_RAN:
 			Ran += effets->second;
+			Power += 1;
 			break;
 		}
 	}

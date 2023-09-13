@@ -48,11 +48,11 @@ const unsigned int getLowestUnfulfilledCount(const list<const Node*>& nodeList)
 const Node* const GOAP::findBestAction()
 {
     list<Node*> openNodes; // Utilisez une liste normale plutôt qu'un pointeur
-    openNodes.push_back(new Node(ws.firstAction, nullptr));
+    openNodes.push_back(new Node(ws->firstAction, nullptr));
     list<EffectCondition>* unfulfilledConditions = new list<EffectCondition>();
 
     // Initialisez la liste des préconditions non remplies avec les préconditions de la première action
-    for (const pair<EffectCondition, int>* cond : *ws.firstAction->getConditions()) {
+    for (const pair<EffectCondition, int>* cond : *ws->firstAction->getConditions()) {
         unfulfilledConditions->push_back(cond->first);
     }
 
@@ -62,7 +62,7 @@ const Node* const GOAP::findBestAction()
         Node* currentNode = findNodeWithLowestCost(openNodes);
 
         // Vérifiez si les préconditions de ce nœud sont satisfaites
-        unsigned int unCount = ws.CheckAction(*currentNode->action);
+        unsigned int unCount = ws->CheckAction(*currentNode->action);
         if (unCount == 0)
         {
             // Les préconditions sont satisfaites, donc ce nœud est valide directement
@@ -74,8 +74,8 @@ const Node* const GOAP::findBestAction()
             //On ajoute les actions 
             currentNode->unfulfilledCount = unCount;
             for (const pair<EffectCondition, int>* cond : *(currentNode->action->getConditions())) {
-                if (!ws.CheckCondition(cond)) {
-                    for (const Action* act : *ws.ActionsList) {
+                if (!ws->CheckCondition(cond)) {
+                    for (const Action* act : *ws->ActionsList) {
                         for (const pair<EffectCondition, int>* eff : *(currentNode->action->getEffects())) {
                             if (eff->first == cond->first) {
                                 openNodes.push_back(new Node(act, currentNode));
@@ -98,7 +98,7 @@ const Node* const GOAP::findBestAction()
 
         // Ajoutez les préconditions non remplies du nœud actuel à la liste des préconditions à remplir
         for (const pair<EffectCondition, int>* cond : *(currentNode->action->getConditions())) {
-            if(!ws.CheckCondition(cond))
+            if(!ws->CheckCondition(cond))
                 unfulfilledConditions->push_back(cond->first);
         }
 

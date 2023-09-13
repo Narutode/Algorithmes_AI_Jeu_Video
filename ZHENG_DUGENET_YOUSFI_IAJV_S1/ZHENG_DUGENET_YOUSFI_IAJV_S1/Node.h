@@ -8,7 +8,7 @@ class Node
 		unsigned int cost;
 		unsigned int unfulfilledCount;
 
-		Node(const Action* const act, const Node* const pNode) : action(act), prevNode(pNode), cost(0) {};
+		Node(const Action* const act, const Node* const pNode) : action(act), prevNode(pNode), cost(0), unfulfilledCount(0){};
 		~Node()
 		{
 			delete prevNode;

@@ -1,8 +1,39 @@
-﻿  main.cpp
-<<<<<<< Updated upstream
-C:\Users\zheng\OneDrive\Documents\GitHub\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\main.cpp(2,10): fatal  error C1083: Impossible d'ouvrir le fichier include : 'WorldState.h' : No such file or directory
+﻿  GOAP.cpp
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(51,37): error C2228: la partie gauche de '.firstAction' doit avoir un class/struct/union
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(51,37): message : le type est 'WorldState *'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(51,37): message : voulez-vous utiliser '->' à la place ?
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(51,58): error C2664: 'Node::Node(const Node &)' : impossible de convertir l'argument 1 de 'nullptr' en 'const Node &'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(51,58): message : Raison : impossible de convertir de 'nullptr' en 'const Node'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(51,58): message : Aucun constructeur n'a pu prendre le type de source, ou la résolution de la surcharge du constructeur était ambiguë
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\Node.h(16,1): message : voir la déclaration de 'Node::Node'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(55,49): error C2143: erreur de syntaxe : absence de ';' avant ':'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(55,83): error C2143: erreur de syntaxe : absence de ';' avant ')'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(78,44): error C2143: erreur de syntaxe : absence de ';' avant ':'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(78,61): error C2143: erreur de syntaxe : absence de ';' avant ')'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.cpp(106,61): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  main.cpp
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.h(9,1): error C2011: 'WorldState' : redéfinition du type 'class'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.h(8): message : voir la déclaration de 'WorldState'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\GOAP.h(11,1): error C2027: utilisation du type non défini 'WorldState'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.h(8): message : voir la déclaration de 'WorldState'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\main.cpp(8,35): error C2027: utilisation du type non défini 'WorldState'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.h(8): message : voir la déclaration de 'WorldState'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\main.cpp(9,4): error C2027: utilisation du type non défini 'WorldState'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.h(8): message : voir la déclaration de 'WorldState'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\main.cpp(12,4): error C2027: utilisation du type non défini 'WorldState'
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.h(8): message : voir la déclaration de 'WorldState'
+  Node.cpp
   WorldState.cpp
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(115,5): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(119,5): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(123,5): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(127,5): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(179,13): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(183,12): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(187,17): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(191,16): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(208,12): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(212,12): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(216,17): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\WorldState.cpp(220,16): warning C4018: '<' : incompatibilité signed/unsigned
   Génération de code en cours...
-=======
-  ZHENG_DUGENET_YOUSFI_IAJV_S1.vcxproj -> C:\Users\HP\Desktop\Projets ESGI\ZHENG_DUGENET_YOUSFI_5A_S1\ZHENG_DUGENET_YOUSFI_IAJV_S1\x64\Debug\ZHENG_DUGENET_YOUSFI_IAJV_S1.exe
->>>>>>> Stashed changes

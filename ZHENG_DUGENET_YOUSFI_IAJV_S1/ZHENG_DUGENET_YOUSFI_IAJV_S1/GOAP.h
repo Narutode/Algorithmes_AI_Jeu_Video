@@ -5,8 +5,11 @@
 class GOAP
 {
 	public :
-		WorldState ws;
-		GOAP(const WorldState curWS) : ws(curWS) {}
+		WorldState* ws;
+		GOAP(WorldState* curWS)
+		{
+			ws = new WorldState(curWS);
+		}
 		const Node* const findBestAction();
 		Node* findNodeWithLowestCost(const list<Node*>& nodeList);
 		const unsigned int getLowestUnfulfilledCount(const list<Node*>& nodeList);
