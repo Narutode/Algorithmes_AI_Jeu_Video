@@ -170,9 +170,9 @@ void WorldState::Execution(const Action* action, bool print)
 		cout << "Nb Wood villager = " << WoodVillager << endl;
 		cout << "Place total = " << PlaceTotal << endl;
 		cout << "Place left = " << PlaceLeft << endl;
-		cout << "Ennemy Power = " << EnemyPower << endl;
+		cout << "Ennemy Power = " << EnemyPower << endl << endl << endl;
 		if(win)
-			cout << "YOU WIIIIIIIINNNNNNNNNNNNNNNNNNNNN" << endl;
+			cout << "YOU WIIIIIIIINNNNNNNNNNNNNNNNNNNNN" << endl << endl << endl;
 	}
 }
 
