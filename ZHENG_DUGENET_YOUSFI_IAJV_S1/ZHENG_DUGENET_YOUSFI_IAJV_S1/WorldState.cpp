@@ -16,7 +16,7 @@ namespace MainVariable
 void WorldState::init() {
 	Villager += MainVariable::StartNbVillager;
 	PlaceTotal += MainVariable::StartNbPlace;
-	assert(PlaceTotal < Villager);
+	assert(PlaceTotal >= Villager);
 	PlaceLeft += MainVariable::StartNbPlace - MainVariable::StartNbVillager;
 	EnnemyInf += MainVariable::StartEnnemiInf;
 	EnnemyCav += MainVariable::StartEnnemiCav;
@@ -26,72 +26,72 @@ void WorldState::init() {
 	EnemyPower = EnnemyInf + EnnemyCav + EnnemyRan;
 
 	ActionsList = new list<Action*>();
-	list<pair<EffectCondition, unsigned int>*>* effects = new list<pair<EffectCondition, unsigned int>*>();
-	list<pair<EffectCondition, unsigned int>*>* conditions = new list<pair<EffectCondition, unsigned int>*>();
+	list<pair<EffectCondition, unsigned int>*> effects;
+	list<pair<EffectCondition, unsigned int>*> conditions;
 
 	//Action create infantry
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 10));
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
-	effects->push_back(new pair<EffectCondition, unsigned int>(EC_INF, 1));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 10));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
+	effects.push_back(new pair<EffectCondition, unsigned int>(EC_INF, 1));
 	ActionsList->push_back(new Action("CreateInfantry", effects, conditions,3));
-	conditions->clear();
-	effects->clear();
+	conditions.clear();
+	effects.clear();
 
 	//Action create cavalry
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 30));
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 2));
-	effects->push_back(new pair<EffectCondition, unsigned int>(EC_CAV, 1));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 30));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 2));
+	effects.push_back(new pair<EffectCondition, unsigned int>(EC_CAV, 1));
 	ActionsList->push_back(new Action("CreateCavalry", effects, conditions, 4));
-	conditions->clear();
-	effects->clear();
+	conditions.clear();
+	effects.clear();
 
 	//Action create range
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 10));
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
-	effects->push_back(new pair<EffectCondition, unsigned int>(EC_RAN, 1));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 10));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
+	effects.push_back(new pair<EffectCondition, unsigned int>(EC_RAN, 1));
 	ActionsList->push_back(new Action("CreateRange", effects, conditions, 2));
-	conditions->clear();
-	effects->clear();
+	conditions.clear();
+	effects.clear();
 
 	//Action create villager
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 5));
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
-	effects->push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 5));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
+	effects.push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
 	ActionsList->push_back(new Action("CreateVillager", effects, conditions, 1));
-	conditions->clear();
-	effects->clear();
+	conditions.clear();
+	effects.clear();
 
 	//Action create house
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_WOOD, 10));
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
-	effects->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 5));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_WOOD, 10));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
+	effects.push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 5));
 	ActionsList->push_back(new Action("CreateHouse", effects, conditions, 3));
-	conditions->clear();
-	effects->clear();
+	conditions.clear();
+	effects.clear();
 
 	//Action get wood
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
-	effects->push_back(new pair<EffectCondition, unsigned int>(EC_WOOD, 1));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
+	effects.push_back(new pair<EffectCondition, unsigned int>(EC_WOOD, 1));
 	ActionsList->push_back(new Action("GetWood", effects, conditions, 2));
-	conditions->clear();
-	effects->clear();
+	conditions.clear();
+	effects.clear();
 
 	//Action get food
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
-	effects->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 1));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
+	effects.push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 1));
 	ActionsList->push_back(new Action("GetFood", effects, conditions, 2));
-	conditions->clear();
-	effects->clear();
+	conditions.clear();
+	effects.clear();
 
 	//Action attack
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_INF, EnnemyInf));
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_RAN, EnnemyRan));
-	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_CAV, EnnemyCav));
-	effects->push_back(new pair<EffectCondition, unsigned int>(EC_WIN, 1));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_INF, EnnemyInf));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_RAN, EnnemyRan));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_CAV, EnnemyCav));
+	effects.push_back(new pair<EffectCondition, unsigned int>(EC_WIN, 1));
 	ActionsList->push_back(new Action("Attack", effects, conditions, 1));
 	firstAction = new Action("Attack", effects, conditions, 1);
-	conditions->clear();
-	effects->clear();
+	conditions.clear();
+	effects.clear();
 }
 void WorldState::Execution(const Action* action)
 {
@@ -112,23 +112,23 @@ void WorldState::Execution(const Action* action)
 	{
 		switch (condition->first) {
 			case EC_FOOD:
-				assert(Food < condition->second);
+				assert(Food >= condition->second);
 				Food -= condition->second;
 				break;
 			case EC_WOOD:
-				assert(Wood < condition->second);
+				assert(Wood >= condition->second);
 				Wood -= condition->second;
 				break;
 			case EC_PLACE:
-				assert(PlaceLeft < condition->second);
+				assert(PlaceLeft >= condition->second);
 				PlaceLeft -= condition->second;
 				break;
 			case EC_VIL:
-				assert(Villager < condition->second);
+				assert(Villager >= condition->second);
 				Villager -= condition->second;
 				break;
 			case EC_POW:
-				assert(EnemyPower > Power);
+				assert(Power >= EnemyPower);
 				break;
 		}
 	}
@@ -175,27 +175,38 @@ const unsigned int WorldState::CheckAction(const Action action)
 	for (const pair<EffectCondition, unsigned int>* condition : *(action.getConditions()))
 	{
 		switch (condition->first) {
-		case EC_FOOD:
-			if (Food < condition->second)
-				Unfulfilledconditions += condition->second - Food;
-			break;
-		case EC_WOOD:
-			if(Wood < condition->second)
-				Unfulfilledconditions += condition->second - Wood;
-			break;
-		case EC_PLACE:
-			if(PlaceLeft < condition->second)
-				Unfulfilledconditions += condition->second - PlaceLeft;
-			break;
-		case EC_VIL:
-			if(Villager < condition->second)
-				Unfulfilledconditions += condition->second - Villager;
-			break;
-		case EC_POW:
-			if(Power < EnemyPower)
-				Unfulfilledconditions += EnemyPower - Power;
-			break;
-
+			case EC_FOOD:
+				if (Food < condition->second)
+					Unfulfilledconditions += condition->second - Food;
+				break;
+			case EC_WOOD:
+				if(Wood < condition->second)
+					Unfulfilledconditions += condition->second - Wood;
+				break;
+			case EC_PLACE:
+				if(PlaceLeft < condition->second)
+					Unfulfilledconditions += condition->second - PlaceLeft;
+				break;
+			case EC_VIL:
+				if(Villager < condition->second)
+					Unfulfilledconditions += condition->second - Villager;
+				break;
+			case EC_POW:
+				if(Power < EnemyPower)
+					Unfulfilledconditions += EnemyPower - Power;
+				break;
+			case EC_INF:
+				if (Inf < condition->second)
+					return false;
+				break;
+			case EC_RAN:
+				if (Ran < condition->second)
+					return false;
+				break;
+			case EC_CAV:
+				if (Cav < condition->second)
+					return false;
+				break;
 		}
 	}
 	return true;
@@ -203,27 +214,40 @@ const unsigned int WorldState::CheckAction(const Action action)
 
 const bool WorldState::CheckCondition(const pair<EffectCondition, unsigned int>* condition)
 {
+	cout << condition->first << endl;
 	switch (condition->first) {
-	case EC_FOOD:
-		if (Food < condition->second)
-			return false;
-		break;
-	case EC_WOOD:
-		if (Wood < condition->second)
-			return false;
-		break;
-	case EC_PLACE:
-		if (PlaceLeft < condition->second)
-			return false;
-		break;
-	case EC_VIL:
-		if (Villager < condition->second)
-			return false;
-		break;
-	case EC_POW:
-		if (Power < EnemyPower)
-			return false;
-		break;
+		case EC_FOOD:
+			if (Food < condition->second)
+				return false;
+			break;
+		case EC_WOOD:
+			if (Wood < condition->second)
+				return false;
+			break;
+		case EC_PLACE:
+			if (PlaceLeft < condition->second)
+				return false;
+			break;
+		case EC_VIL:
+			if (Villager < condition->second)
+				return false;
+			break;
+		case EC_POW:
+			if (Power < EnemyPower)
+				return false;
+			break;
+		case EC_INF:
+			if (Inf < condition->second)
+				return false;
+			break;
+		case EC_RAN:
+			if (Ran < condition->second)
+				return false;
+			break;
+		case EC_CAV:
+			if (Cav < condition->second)
+				return false;
+			break;
 	}
 	return true;
 }

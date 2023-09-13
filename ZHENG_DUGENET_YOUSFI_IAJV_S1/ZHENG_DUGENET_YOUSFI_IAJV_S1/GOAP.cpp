@@ -1,6 +1,7 @@
 #include <vector>
 #include "GOAP.h"
 #include "Node.h"
+#include <iostream>
 
 Node* GOAP::findNodeWithLowestCost(const list<Node*>& nodeList)
 {
@@ -23,7 +24,7 @@ Node* GOAP::findNodeWithLowestCost(const list<Node*>& nodeList)
     return lowestCostNode;
 }
 
-const unsigned int getLowestUnfulfilledCount(const list<const Node*>& nodeList)
+const unsigned int getLowestUnfulfilledCount(const list<Node*>& nodeList)
 {
     if (nodeList.empty()) {
         return 0; // Si la liste est vide, il n'y a aucun élément non satisfait.
@@ -60,9 +61,11 @@ const Node* const GOAP::findBestAction()
     {
         // Trouvez le nœud avec le coût le plus bas dans openNodes
         Node* currentNode = findNodeWithLowestCost(openNodes);
-
+        cout << currentNode->action->Name << endl;
         // Vérifiez si les préconditions de ce nœud sont satisfaites
         unsigned int unCount = ws->CheckAction(*currentNode->action);
+        //cout << currentNode->action->getConditions()->size() << endl;
+
         if (unCount == 0)
         {
             // Les préconditions sont satisfaites, donc ce nœud est valide directement
@@ -74,8 +77,11 @@ const Node* const GOAP::findBestAction()
             //On ajoute les actions 
             currentNode->unfulfilledCount = unCount;
             for (const pair<EffectCondition, unsigned int>* cond : *(currentNode->action->getConditions())) {
-                if (!ws->CheckCondition(cond)) {
+                bool t = ws->CheckCondition(cond);
+                cout << cond->first << " " << t << endl;
+                if (!t) {
                     for (const Action* act : *ws->ActionsList) {
+                        //cout << act->Name << endl;
                         for (const pair<EffectCondition, unsigned int>* eff : *(currentNode->action->getEffects())) {
                             if (eff->first == cond->first) {
                                 openNodes.push_back(new Node(act, currentNode));
@@ -104,7 +110,7 @@ const Node* const GOAP::findBestAction()
 
         // Évaluez le nombre de préconditions non satisfaites
         int unfulfilledCount = unfulfilledConditions->size();
-  
+
         openNodes.remove(currentNode);
     }
     return openNodes.front();

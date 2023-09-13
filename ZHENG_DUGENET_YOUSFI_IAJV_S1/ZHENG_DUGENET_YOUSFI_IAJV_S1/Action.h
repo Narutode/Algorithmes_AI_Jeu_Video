@@ -26,8 +26,12 @@ class Action
 	public:
 		const string Name;
 		const int Cost;
-		Action(const string name, const list<pair<EffectCondition, unsigned int>*>* effects, const list<pair<EffectCondition, unsigned int>*>* conditions, int const cost)
-			: Name(name), Effects(effects), Conditions(conditions), Cost(cost) {};
+		Action(const string name, const list<pair<EffectCondition, unsigned int>*> effects, const list<pair<EffectCondition, unsigned int>*> conditions, int const cost)
+			: Name(name), Cost(cost) 
+		{
+			Effects = new list<pair<EffectCondition, unsigned int>*>(effects);
+			Conditions = new list<pair<EffectCondition, unsigned int>*>(conditions);
+		};
 		const list<pair<EffectCondition, unsigned int>*>* getConditions() const;
 		const list<pair<EffectCondition, unsigned int>*>* getEffects() const;
 };
