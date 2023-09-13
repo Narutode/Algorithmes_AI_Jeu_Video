@@ -14,9 +14,9 @@ namespace MainVariable
 }
 
 void WorldState::init() {
-	Villager += MainVariable::StartNbVillager;
+	FreeVillager += MainVariable::StartNbVillager;
 	PlaceTotal += MainVariable::StartNbPlace;
-	assert(PlaceTotal >= Villager);
+	assert(PlaceTotal >= FreeVillager);
 	PlaceLeft += MainVariable::StartNbPlace - MainVariable::StartNbVillager;
 	EnnemyInf += MainVariable::StartEnnemiInf;
 	EnnemyCav += MainVariable::StartEnnemiCav;
@@ -96,18 +96,7 @@ void WorldState::init() {
 void WorldState::Execution(const Action* action)
 {
 	bool conditionsSatisfied = true;
-	cout << action->Name << endl;
-	cout << "Nb food = " << Food << endl;
-	cout << "Nb wood = " << Wood << endl;
-	cout << "Nb Inf = " << Inf << endl;
-	cout << "Nb Cav = " << Cav << endl;
-	cout << "Nb Ran = " << Ran << endl;
-	cout << "Power = " << Power << endl;
-	cout << "Nb villager" << Villager << endl;
-	cout << "Place total = " << PlaceTotal << endl;
-	cout << "Place left = " << PlaceLeft << endl;
-	cout << "Nb food = " << Food << endl;
-	cout << "Ennemy Power = " << EnemyPower << endl;
+
 	for (const pair<EffectCondition, unsigned int>* condition : *(action->getConditions()))
 	{
 		switch (condition->first) {
@@ -124,8 +113,10 @@ void WorldState::Execution(const Action* action)
 				PlaceLeft -= condition->second;
 				break;
 			case EC_VIL:
-				assert(Villager >= condition->second);
-				Villager -= condition->second;
+				if(FreeVillager > 0) {
+					assert(FreeVillager >= condition->second);
+					//FreeVillager -= condition->second;
+				}
 				break;
 			case EC_POW:
 				assert(Power >= EnemyPower);
@@ -137,18 +128,18 @@ void WorldState::Execution(const Action* action)
 	{
 		switch (effets->first) {
 		case EC_FOOD:
-			Food += effets->second;
-			Villager -= 1;
+			FoodVillager += 1;
+			Food += effets->second * FoodVillager;
 			break;
 		case EC_WOOD:
-			Wood += effets->second;
-			Villager -= 1;
+			WoodVillager += 1;
+			Wood += effets->second * WoodVillager;
 			break;
 		case EC_PLACE:
 			PlaceLeft += effets->second;
 			break;
 		case EC_VIL:
-			Villager += effets->second;
+			FreeVillager += effets->second;
 			break;
 		case EC_WIN:
 			cout << "YOU WINNNNNNNNNNNNNNNNNNNNNNNNNNNNNN" << endl;
@@ -167,9 +158,23 @@ void WorldState::Execution(const Action* action)
 			break;
 		}
 	}
+	cout << "Execute " << action->Name << endl;
+	cout << "Nb food = " << Food << endl;
+	cout << "Nb wood = " << Wood << endl;
+	cout << "Nb Inf = " << Inf << endl;
+	cout << "Nb Cav = " << Cav << endl;
+	cout << "Nb Ran = " << Ran << endl;
+	cout << "Power = " << Power << endl;
+	cout << "Nb Free villager = " << FreeVillager << endl;
+	cout << "Nb Food villager = " << FoodVillager << endl;
+	cout << "Nb Wood villager = " << WoodVillager << endl;
+	cout << "Place total = " << PlaceTotal << endl;
+	cout << "Place left = " << PlaceLeft << endl;
+	cout << "Nb food = " << Food << endl;
+	cout << "Ennemy Power = " << EnemyPower << endl;
 }
 
-const unsigned int WorldState::CheckAction(const Action action)
+const unsigned int WorldState::CheckActionCondition(const Action action)
 {
 	unsigned int Unfulfilledconditions = 0;
 	for (const pair<EffectCondition, unsigned int>* condition : *(action.getConditions()))
@@ -188,8 +193,9 @@ const unsigned int WorldState::CheckAction(const Action action)
 					Unfulfilledconditions += condition->second - PlaceLeft;
 				break;
 			case EC_VIL:
-				if(Villager < condition->second)
-					Unfulfilledconditions += condition->second - Villager;
+				if(FreeVillager > 0)
+					if(FreeVillager < condition->second)
+						Unfulfilledconditions += condition->second - FreeVillager;
 				break;
 			case EC_POW:
 				if(Power < EnemyPower)
@@ -197,24 +203,33 @@ const unsigned int WorldState::CheckAction(const Action action)
 				break;
 			case EC_INF:
 				if (Inf < condition->second)
-					return false;
+					Unfulfilledconditions += condition->second - Inf;
 				break;
 			case EC_RAN:
 				if (Ran < condition->second)
-					return false;
+					Unfulfilledconditions += condition->second - Ran;
 				break;
 			case EC_CAV:
 				if (Cav < condition->second)
-					return false;
+					Unfulfilledconditions += condition->second - Cav;
 				break;
 		}
 	}
-	return true;
+	return Unfulfilledconditions;
+}
+
+const unsigned int WorldState::CheckActionEffect(const Action action)
+{
+	unsigned int Fulfilledconditions = 0;
+	for (const pair<EffectCondition, unsigned int>* effect : *(action.getEffects()))
+	{
+		Fulfilledconditions += effect->second;
+	}
+	return Fulfilledconditions;
 }
 
 const bool WorldState::CheckCondition(const pair<EffectCondition, unsigned int>* condition)
 {
-	cout << condition->first << endl;
 	switch (condition->first) {
 		case EC_FOOD:
 			if (Food < condition->second)
@@ -229,8 +244,9 @@ const bool WorldState::CheckCondition(const pair<EffectCondition, unsigned int>*
 				return false;
 			break;
 		case EC_VIL:
-			if (Villager < condition->second)
-				return false;
+			if(FreeVillager > 0)
+				if (FreeVillager < condition->second)
+					return false;
 			break;
 		case EC_POW:
 			if (Power < EnemyPower)
