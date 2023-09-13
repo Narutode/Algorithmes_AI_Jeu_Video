@@ -3,20 +3,16 @@
 #include "Node.h"
 #include <iostream>
 
-Node* GOAP::findNodeWithLowestCost(const list<Node*>& nodeList)
+Node GOAP::findNodeWithLowestCost(const vector<Node>& nodeList)
 {
-    if (nodeList.empty()) {
-        return nullptr; // Si la liste est vide, retournez nullptr.
-    }
+    Node lowestCostNode = nodeList.front(); // Initialisez avec le premier nœud.
+    unsigned int lowestCost = lowestCostNode.preCondition.size();
 
-    Node* lowestCostNode = nodeList.front(); // Initialisez avec le premier nœud.
-    unsigned int lowestCost = lowestCostNode->unfulfilledCount;
-
-    for (Node* node : nodeList)
+    for (Node node : nodeList)
     {
-        if (node->unfulfilledCount < lowestCost)
+        if (node.preCondition.size() < lowestCost)
         {
-            lowestCost = node->unfulfilledCount;
+            lowestCost = node.preCondition.size();
             lowestCostNode = node;
         }
     }
@@ -24,7 +20,7 @@ Node* GOAP::findNodeWithLowestCost(const list<Node*>& nodeList)
     return lowestCostNode;
 }
 
-const unsigned int GOAP::getLowestUnfulfilledCount(const list<Node*>& nodeList)
+const unsigned int GOAP::getLowestUnfulfilledCount(const vector<Node*> nodeList)
 {
     if (nodeList.empty()) {
         return 0; // Si la liste est vide, il n'y a aucun élément non satisfait.
@@ -35,7 +31,7 @@ const unsigned int GOAP::getLowestUnfulfilledCount(const list<Node*>& nodeList)
     for (const Node* node : nodeList)
     {
         // Vérifiez le nombre d'éléments non satisfaits dans chaque nœud et mettez à jour le plus bas trouvé.
-        unsigned int unfulfilledCount = node->unfulfilledCount;
+        unsigned int unfulfilledCount = node->preCondition.size();
 
         if (unfulfilledCount < lowestUnfulfilledCount)
         {
@@ -48,20 +44,34 @@ const unsigned int GOAP::getLowestUnfulfilledCount(const list<Node*>& nodeList)
 
 const Node* const GOAP::findBestAction()
 {
-    list<Node*> openNodes; // Utilisez une liste normale plutôt qu'un pointeur
-    openNodes.push_back(new Node(ws->firstAction, nullptr));
-    list<EffectCondition>* unfulfilledConditions = new list<EffectCondition>();
-
+    vector<Node*> endNode;
+    vector<Node*> openNodes;
+    list<EffectCondition> unfulfilledConditions;
+    openNodes.reserve(10000);
     // Initialisez la liste des préconditions non remplies avec les préconditions de la première action
     for (const pair<EffectCondition, unsigned int>* cond : *ws->firstAction->getConditions()) {
-        unfulfilledConditions->push_back(cond->first);
+        unfulfilledConditions.push_back(cond->first);
     }
-
+    vector<Action*> emptyList;
+    openNodes.push_back(new Node(ws->firstAction, emptyList, ws, unfulfilledConditions));
+    auto currentNodeIte = openNodes.begin();
+    Node* currentNode = currentNodeIte[0];
     while (!openNodes.empty())
     {
         // Trouvez le nœud avec le coût le plus bas dans openNodes
-        Node* currentNode = findNodeWithLowestCost(openNodes);
-        cout << currentNode->action->Name << endl;
+        int lowestCost = numeric_limits<int>::max();
+
+        for (auto it = openNodes.begin(); it != openNodes.end(); ++it)
+        {
+            if ((*it)->preCondition.size() < lowestCost)
+            {
+                lowestCost = (*it)->preCondition.size();
+                currentNodeIte = it;
+                currentNode = currentNodeIte[0];
+            }
+        }
+        //currentNode = findNodeWithLowestCost(openNodes);
+        //cout << currentNode->action->Name << endl;
         // Vérifiez si les préconditions de ce nœud sont satisfaites
         unsigned int unCount = ws->CheckActionCondition(*currentNode->action);
         //cout << currentNode->action->getConditions()->size() << endl;
@@ -69,25 +79,23 @@ const Node* const GOAP::findBestAction()
         if (unCount == 0)
         {
             // Les préconditions sont satisfaites, donc ce nœud est valide directement
-            currentNode->cost=0;
-            currentNode->unfulfilledCount = 0;
-            if(currentNode->prevNode != nullptr)
-                currentNode->prevNode->unfulfilledCount -= ws->CheckActionEffect(*currentNode->action);
-            ws->Execution(currentNode->action);
-            openNodes.remove(currentNode);
-            continue;
+            //currentNode->cost=0;
+            currentNode->preCondition.clear();
+            currentNode->worldstate.Execution(currentNode->action, false);
         }
         else
         {
+            //currentNode->unfulfilledCount += unCount;
             //On ajoute les actions 
-            currentNode->unfulfilledCount += unCount;
+            vector<Action*> parentNodes = currentNode->prevNode;
+            parentNodes.push_back(currentNode->action);
             for (const pair<EffectCondition, unsigned int>* cond : *(currentNode->action->getConditions())) {
                 bool t = ws->CheckCondition(cond);
                 if (!t) {
-                    for (const Action* act : *ws->ActionsList) {
+                    for (Action* act : *ws->ActionsList) {
                         for (const pair<EffectCondition, unsigned int>* eff : *(act->getEffects())) {
                             if (eff->first == cond->first) {
-                                openNodes.push_back(new Node(act, currentNode));
+                                openNodes.push_back(new Node(act, parentNodes, currentNode->worldstate, currentNode->preCondition));
                                 break;
                             }
                         }
@@ -99,29 +107,29 @@ const Node* const GOAP::findBestAction()
         // Parcourez les effets du nœud actuel
         for (const pair<EffectCondition, unsigned int>* effect : *(currentNode->action->getEffects())) {
             // Retirez l'effet des préconditions non remplies
-            if (find(unfulfilledConditions->begin(), unfulfilledConditions->end(), effect->first) != unfulfilledConditions->end()) {
-                unfulfilledConditions->remove(effect->first);
-                currentNode->unfulfilledCount -= effect->second;
+            if (find(currentNode->preCondition.begin(), currentNode->preCondition.end(), effect->first) != currentNode->preCondition.end()) {
+                currentNode->preCondition.remove(effect->first);
+                //currentNode->unfulfilledCount -= effect->second;
             }
         }
 
         // Ajoutez les préconditions non remplies du nœud actuel à la liste des préconditions à remplir
         for (const pair<EffectCondition, unsigned int>* cond : *(currentNode->action->getConditions())) {
-            if(!ws->CheckCondition(cond))
-                unfulfilledConditions->push_back(cond->first);
+            if (!ws->CheckCondition(cond))
+                currentNode->preCondition.push_back(cond->first);
         }
 
         // Évaluez le nombre de préconditions non satisfaites
-        int unfulfilledCount = unfulfilledConditions->size();
+        unsigned int unfulfilledCount = currentNode->preCondition.size();
 
-        if (ws->CheckActionCondition(*currentNode->action) <= 0)
-            openNodes.remove(currentNode);
+        if (unfulfilledCount > getLowestUnfulfilledCount(openNodes)) {
+            openNodes.erase(currentNodeIte);
+        }
+        if (currentNode->preCondition.size()==0)
+        {
+            endNode.push_back(currentNode);
+            openNodes.erase(currentNodeIte);
+        }
     }
-    return openNodes.front();
-    // À ce stade, openNodes contient les noeuds valides avec les coûts les plus bas.
-    // Vous pouvez maintenant choisir la meilleure action parmi ces nœuds.
-
-    // ...
-
-    // Assurez-vous de gérer correctement la mémoire en supprimant les nœuds et les listes non nécessaires.
+    return endNode.front();
 }

@@ -7,9 +7,13 @@ int main(void)
 {
 	WorldState* ws = new WorldState();
 	ws->init();
-	GOAP* goap = new GOAP(ws);
-	const Node* bestNode = goap->findBestAction();
-	ws->Execution(bestNode->action);
+	while(true) {
+		GOAP* goap = new GOAP(ws);
+		const Node* bestNode = goap->findBestAction();
+		ws->Execution(bestNode->action, true);
+		if (bestNode->action->Name == "Attack")
+			break;
+	}
 
 	return 0;
 }

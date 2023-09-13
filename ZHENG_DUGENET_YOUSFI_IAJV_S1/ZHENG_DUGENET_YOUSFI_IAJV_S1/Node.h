@@ -1,16 +1,21 @@
 #pragma once
-#include "Action.h"
+#include <vector>
+#include "WorldState.h"
+using namespace std;
+class Action;
 class Node
 {
 	public:
-		const Action* action;
-		Node* const prevNode;
-		unsigned int cost;
-		unsigned int unfulfilledCount;
+		Action* action;
+		vector<Action*> prevNode;
+		list<EffectCondition> preCondition;
+		//unsigned int cost;
+		//unsigned int unfulfilledCount;
+		WorldState worldstate;
 
-		Node(const Action* const act, Node* const pNode) : action(act), prevNode(pNode), cost(0), unfulfilledCount(0){};
+		Node(Action* const act, vector<Action*> pNode, WorldState ws, list<EffectCondition> preC) : action(act), prevNode(pNode), worldstate(ws), preCondition(preC)
+		{	};
 		~Node()
 		{
-			delete prevNode;
 		}
 };

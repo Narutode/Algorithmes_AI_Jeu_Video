@@ -6,9 +6,9 @@ namespace MainVariable
 {
 	constexpr int StartNbVillager = 1;
 	constexpr int StartNbPlace = 1;
-	constexpr int StartEnnemiInf = 1;
-	constexpr int StartEnnemiCav = 0;
-	constexpr int StartEnnemiRan = 0;
+	constexpr int StartEnnemiInf = 2;
+	constexpr int StartEnnemiCav = 1;
+	constexpr int StartEnnemiRan = 3;
 	constexpr int StartNbWood = 0;
 	constexpr int StartNbFood = 0;
 }
@@ -84,16 +84,16 @@ void WorldState::init() {
 	effects.clear();
 
 	//Action attack
-	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_INF, EnnemyInf));
-	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_RAN, EnnemyRan));
-	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_CAV, EnnemyCav));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_INF, EnnemyCav));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_RAN, EnnemyInf));
+	conditions.push_back(new pair<EffectCondition, unsigned int>(EC_CAV, EnnemyRan));
 	effects.push_back(new pair<EffectCondition, unsigned int>(EC_WIN, 1));
 	ActionsList->push_back(new Action("Attack", effects, conditions, 1));
 	firstAction = new Action("Attack", effects, conditions, 1);
 	conditions.clear();
 	effects.clear();
 }
-void WorldState::Execution(const Action* action)
+void WorldState::Execution(const Action* action, bool print)
 {
 	bool conditionsSatisfied = true;
 
@@ -119,7 +119,7 @@ void WorldState::Execution(const Action* action)
 				}
 				break;
 			case EC_POW:
-				assert(Power >= EnemyPower);
+				assert(Power > EnemyPower);
 				break;
 		}
 	}
@@ -158,20 +158,22 @@ void WorldState::Execution(const Action* action)
 			break;
 		}
 	}
-	cout << "Execute " << action->Name << endl;
-	cout << "Nb food = " << Food << endl;
-	cout << "Nb wood = " << Wood << endl;
-	cout << "Nb Inf = " << Inf << endl;
-	cout << "Nb Cav = " << Cav << endl;
-	cout << "Nb Ran = " << Ran << endl;
-	cout << "Power = " << Power << endl;
-	cout << "Nb Free villager = " << FreeVillager << endl;
-	cout << "Nb Food villager = " << FoodVillager << endl;
-	cout << "Nb Wood villager = " << WoodVillager << endl;
-	cout << "Place total = " << PlaceTotal << endl;
-	cout << "Place left = " << PlaceLeft << endl;
-	cout << "Nb food = " << Food << endl;
-	cout << "Ennemy Power = " << EnemyPower << endl;
+	if (print) {
+		cout << "Execute " << action->Name << endl;
+		cout << "Nb food = " << Food << endl;
+		cout << "Nb wood = " << Wood << endl;
+		cout << "Nb Inf = " << Inf << endl;
+		cout << "Nb Cav = " << Cav << endl;
+		cout << "Nb Ran = " << Ran << endl;
+		cout << "Power = " << Power << endl;
+		cout << "Nb Free villager = " << FreeVillager << endl;
+		cout << "Nb Food villager = " << FoodVillager << endl;
+		cout << "Nb Wood villager = " << WoodVillager << endl;
+		cout << "Place total = " << PlaceTotal << endl;
+		cout << "Place left = " << PlaceLeft << endl;
+		cout << "Nb food = " << Food << endl;
+		cout << "Ennemy Power = " << EnemyPower << endl;
+	}
 }
 
 const unsigned int WorldState::CheckActionCondition(const Action action)
@@ -249,7 +251,7 @@ const bool WorldState::CheckCondition(const pair<EffectCondition, unsigned int>*
 					return false;
 			break;
 		case EC_POW:
-			if (Power < EnemyPower)
+			if (Power <= EnemyPower)
 				return false;
 			break;
 		case EC_INF:
