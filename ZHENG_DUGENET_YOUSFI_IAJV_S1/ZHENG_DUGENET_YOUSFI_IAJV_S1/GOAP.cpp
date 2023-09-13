@@ -1,24 +1,8 @@
 #include <vector>
-#include "GOAP.h"
-#include "Node.h"
 #include <iostream>
 
-Node GOAP::findNodeWithLowestCost(const vector<Node>& nodeList)
-{
-    Node lowestCostNode = nodeList.front(); // Initialisez avec le premier nœud.
-    unsigned int lowestCost = lowestCostNode.preCondition.size();
-
-    for (Node node : nodeList)
-    {
-        if (node.preCondition.size() < lowestCost)
-        {
-            lowestCost = node.preCondition.size();
-            lowestCostNode = node;
-        }
-    }
-
-    return lowestCostNode;
-}
+#include "GOAP.h"
+#include "Node.h"
 
 const unsigned int GOAP::getLowestUnfulfilledCount(const vector<Node*> nodeList)
 {

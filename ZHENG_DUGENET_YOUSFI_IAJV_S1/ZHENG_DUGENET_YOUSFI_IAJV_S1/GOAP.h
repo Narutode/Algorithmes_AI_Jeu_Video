@@ -11,6 +11,5 @@ class GOAP
 			ws = new WorldState(curWS);
 		}
 		const Node* const findBestAction();
-		Node findNodeWithLowestCost(const vector<Node>& nodeList);
 		const unsigned int getLowestUnfulfilledCount(const vector<Node*> nodeList);
 };

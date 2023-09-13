@@ -220,16 +220,6 @@ const unsigned int WorldState::CheckActionCondition(const Action action)
 	return Unfulfilledconditions;
 }
 
-const unsigned int WorldState::CheckActionEffect(const Action action)
-{
-	unsigned int Fulfilledconditions = 0;
-	for (const pair<EffectCondition, unsigned int>* effect : *(action.getEffects()))
-	{
-		Fulfilledconditions += effect->second;
-	}
-	return Fulfilledconditions;
-}
-
 const bool WorldState::CheckCondition(const pair<EffectCondition, unsigned int>* condition)
 {
 	switch (condition->first) {

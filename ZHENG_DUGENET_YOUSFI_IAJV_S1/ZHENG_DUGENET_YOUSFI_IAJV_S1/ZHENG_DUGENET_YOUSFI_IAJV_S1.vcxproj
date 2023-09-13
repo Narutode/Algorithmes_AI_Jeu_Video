@@ -130,7 +130,6 @@
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="GOAP.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="WorldState.cpp" />
   </ItemGroup>
   <ItemGroup>

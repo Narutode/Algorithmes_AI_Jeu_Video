@@ -60,6 +60,5 @@ public:
 	void init();
 	void Execution(const Action* action, bool print);
 	const unsigned int CheckActionCondition(const Action action);
-	const unsigned int CheckActionEffect(const Action action);
 	const bool CheckCondition(const pair<EffectCondition, unsigned int>* condition);
 };
