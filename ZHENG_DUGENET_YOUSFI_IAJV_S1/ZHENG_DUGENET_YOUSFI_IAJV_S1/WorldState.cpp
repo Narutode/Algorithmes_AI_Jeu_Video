@@ -26,68 +26,68 @@ void WorldState::init() {
 	EnemyPower = EnnemyInf + EnnemyCav + EnnemyRan;
 
 	ActionsList = new list<Action*>();
-	list<pair<EffectCondition, int>*>* effects = new list<pair<EffectCondition, int>*>();
-	list<pair<EffectCondition, int>*>* conditions = new list<pair<EffectCondition, int>*>();
+	list<pair<EffectCondition, unsigned int>*>* effects = new list<pair<EffectCondition, unsigned int>*>();
+	list<pair<EffectCondition, unsigned int>*>* conditions = new list<pair<EffectCondition, unsigned int>*>();
 
 	//Action create infantry
-	conditions->push_back(new pair<EffectCondition, int>(EC_FOOD, 10));
-	conditions->push_back(new pair<EffectCondition, int>(EC_PLACE, 1));
-	effects->push_back(new pair<EffectCondition, int>(EC_INF, 1));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 10));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
+	effects->push_back(new pair<EffectCondition, unsigned int>(EC_INF, 1));
 	ActionsList->push_back(new Action("CreateInfantry", effects, conditions,3));
 	conditions->clear();
 	effects->clear();
 
 	//Action create cavalry
-	conditions->push_back(new pair<EffectCondition, int>(EC_FOOD, 30));
-	conditions->push_back(new pair<EffectCondition, int>(EC_PLACE, 2));
-	effects->push_back(new pair<EffectCondition, int>(EC_CAV, 1));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 30));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 2));
+	effects->push_back(new pair<EffectCondition, unsigned int>(EC_CAV, 1));
 	ActionsList->push_back(new Action("CreateCavalry", effects, conditions, 4));
 	conditions->clear();
 	effects->clear();
 
 	//Action create range
-	conditions->push_back(new pair<EffectCondition, int>(EC_FOOD, 10));
-	conditions->push_back(new pair<EffectCondition, int>(EC_PLACE, 1));
-	effects->push_back(new pair<EffectCondition, int>(EC_RAN, 1));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 10));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
+	effects->push_back(new pair<EffectCondition, unsigned int>(EC_RAN, 1));
 	ActionsList->push_back(new Action("CreateRange", effects, conditions, 2));
 	conditions->clear();
 	effects->clear();
 
 	//Action create villager
-	conditions->push_back(new pair<EffectCondition, int>(EC_FOOD, 5));
-	conditions->push_back(new pair<EffectCondition, int>(EC_PLACE, 1));
-	effects->push_back(new pair<EffectCondition, int>(EC_VIL, 1));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 5));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 1));
+	effects->push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
 	ActionsList->push_back(new Action("CreateVillager", effects, conditions, 1));
 	conditions->clear();
 	effects->clear();
 
 	//Action create house
-	conditions->push_back(new pair<EffectCondition, int>(EC_WOOD, 10));
-	conditions->push_back(new pair<EffectCondition, int>(EC_VIL, 1));
-	effects->push_back(new pair<EffectCondition, int>(EC_PLACE, 5));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_WOOD, 10));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
+	effects->push_back(new pair<EffectCondition, unsigned int>(EC_PLACE, 5));
 	ActionsList->push_back(new Action("CreateHouse", effects, conditions, 3));
 	conditions->clear();
 	effects->clear();
 
 	//Action get wood
-	conditions->push_back(new pair<EffectCondition, int>(EC_VIL, 1));
-	effects->push_back(new pair<EffectCondition, int>(EC_WOOD, 1));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
+	effects->push_back(new pair<EffectCondition, unsigned int>(EC_WOOD, 1));
 	ActionsList->push_back(new Action("GetWood", effects, conditions, 2));
 	conditions->clear();
 	effects->clear();
 
 	//Action get food
-	conditions->push_back(new pair<EffectCondition, int>(EC_VIL, 1));
-	effects->push_back(new pair<EffectCondition, int>(EC_FOOD, 1));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_VIL, 1));
+	effects->push_back(new pair<EffectCondition, unsigned int>(EC_FOOD, 1));
 	ActionsList->push_back(new Action("GetFood", effects, conditions, 2));
 	conditions->clear();
 	effects->clear();
 
 	//Action attack
-	conditions->push_back(new pair<EffectCondition, int>(EC_INF, EnnemyInf));
-	conditions->push_back(new pair<EffectCondition, int>(EC_RAN, EnnemyRan));
-	conditions->push_back(new pair<EffectCondition, int>(EC_CAV, EnnemyCav));
-	effects->push_back(new pair<EffectCondition, int>(EC_WIN, 1));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_INF, EnnemyInf));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_RAN, EnnemyRan));
+	conditions->push_back(new pair<EffectCondition, unsigned int>(EC_CAV, EnnemyCav));
+	effects->push_back(new pair<EffectCondition, unsigned int>(EC_WIN, 1));
 	ActionsList->push_back(new Action("Attack", effects, conditions, 1));
 	firstAction = new Action("Attack", effects, conditions, 1);
 	conditions->clear();
@@ -108,7 +108,7 @@ void WorldState::Execution(const Action* action)
 	cout << "Place left = " << PlaceLeft << endl;
 	cout << "Nb food = " << Food << endl;
 	cout << "Ennemy Power = " << EnemyPower << endl;
-	for (const pair<EffectCondition, int>* condition : *(action->getConditions()))
+	for (const pair<EffectCondition, unsigned int>* condition : *(action->getConditions()))
 	{
 		switch (condition->first) {
 			case EC_FOOD:
@@ -133,7 +133,7 @@ void WorldState::Execution(const Action* action)
 		}
 	}
 
-	for (const pair<EffectCondition, int>* effets : *(action->getEffects()))
+	for (const pair<EffectCondition, unsigned int>* effets : *(action->getEffects()))
 	{
 		switch (effets->first) {
 		case EC_FOOD:
@@ -172,7 +172,7 @@ void WorldState::Execution(const Action* action)
 const unsigned int WorldState::CheckAction(const Action action)
 {
 	unsigned int Unfulfilledconditions = 0;
-	for (const pair<EffectCondition, int>* condition : *(action.getConditions()))
+	for (const pair<EffectCondition, unsigned int>* condition : *(action.getConditions()))
 	{
 		switch (condition->first) {
 		case EC_FOOD:
@@ -201,7 +201,7 @@ const unsigned int WorldState::CheckAction(const Action action)
 	return true;
 }
 
-const bool WorldState::CheckCondition(const pair<EffectCondition, int>* condition)
+const bool WorldState::CheckCondition(const pair<EffectCondition, unsigned int>* condition)
 {
 	switch (condition->first) {
 	case EC_FOOD:

@@ -52,7 +52,7 @@ const Node* const GOAP::findBestAction()
     list<EffectCondition>* unfulfilledConditions = new list<EffectCondition>();
 
     // Initialisez la liste des préconditions non remplies avec les préconditions de la première action
-    for (const pair<EffectCondition, int>* cond : *ws->firstAction->getConditions()) {
+    for (const pair<EffectCondition, unsigned int>* cond : *ws->firstAction->getConditions()) {
         unfulfilledConditions->push_back(cond->first);
     }
 
@@ -73,10 +73,10 @@ const Node* const GOAP::findBestAction()
         {
             //On ajoute les actions 
             currentNode->unfulfilledCount = unCount;
-            for (const pair<EffectCondition, int>* cond : *(currentNode->action->getConditions())) {
+            for (const pair<EffectCondition, unsigned int>* cond : *(currentNode->action->getConditions())) {
                 if (!ws->CheckCondition(cond)) {
                     for (const Action* act : *ws->ActionsList) {
-                        for (const pair<EffectCondition, int>* eff : *(currentNode->action->getEffects())) {
+                        for (const pair<EffectCondition, unsigned int>* eff : *(currentNode->action->getEffects())) {
                             if (eff->first == cond->first) {
                                 openNodes.push_back(new Node(act, currentNode));
                                 break;
@@ -88,7 +88,7 @@ const Node* const GOAP::findBestAction()
         }
 
         // Parcourez les effets du nœud actuel
-        for (const pair<EffectCondition, int>* effect : *(currentNode->action->getEffects())) {
+        for (const pair<EffectCondition, unsigned int>* effect : *(currentNode->action->getEffects())) {
             // Retirez l'effet des préconditions non remplies
             if (find(unfulfilledConditions->begin(), unfulfilledConditions->end(), effect->first) != unfulfilledConditions->end()) {
                 unfulfilledConditions->remove(effect->first);
@@ -97,7 +97,7 @@ const Node* const GOAP::findBestAction()
         }
 
         // Ajoutez les préconditions non remplies du nœud actuel à la liste des préconditions à remplir
-        for (const pair<EffectCondition, int>* cond : *(currentNode->action->getConditions())) {
+        for (const pair<EffectCondition, unsigned int>* cond : *(currentNode->action->getConditions())) {
             if(!ws->CheckCondition(cond))
                 unfulfilledConditions->push_back(cond->first);
         }

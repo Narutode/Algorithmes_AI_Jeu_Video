@@ -1,8 +1,10 @@
+#pragma once
 #include <cassert>
 #include <list>
 #include <utility>
 
 #include "Action.h"
+
 using namespace std;
 
 class WorldState
@@ -55,5 +57,5 @@ public:
 	void init();
 	void Execution(const Action* action);
 	const unsigned int CheckAction(const Action action);
-	const bool CheckCondition(const pair<EffectCondition, int>* condition);
+	const bool CheckCondition(const pair<EffectCondition, unsigned int>* condition);
 };

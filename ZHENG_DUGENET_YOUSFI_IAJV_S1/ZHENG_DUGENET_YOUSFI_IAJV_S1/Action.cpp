@@ -1,11 +1,11 @@
 #include "Action.h"
 
-const list<pair<EffectCondition, int>*>* Action::getConditions() const
+const list<pair<EffectCondition, unsigned int>*>* Action::getConditions() const
 {
 	return Conditions;
 }
 
-const list<pair<EffectCondition, int>*>* Action::getEffects() const
+const list<pair<EffectCondition, unsigned int>*>* Action::getEffects() const
 {
 	return Effects;
 }
