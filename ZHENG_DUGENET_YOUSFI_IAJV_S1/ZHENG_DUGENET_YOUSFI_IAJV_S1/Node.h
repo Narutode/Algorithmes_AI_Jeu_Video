@@ -3,9 +3,11 @@
 class Node
 {
 	public:
-		Action* action;
+		const Action* action;
 		const Node* prevNode;
 		unsigned int cost;
+		unsigned int unfulfilledCount;
+
 		Node(const Action* const act, const Node* const pNode) : action(act), prevNode(pNode), cost(0) {};
 		~Node()
 		{

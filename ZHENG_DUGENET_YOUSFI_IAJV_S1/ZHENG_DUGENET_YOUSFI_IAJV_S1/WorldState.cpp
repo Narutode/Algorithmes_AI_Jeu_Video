@@ -96,7 +96,7 @@ void WorldState::Execution(const Action action)
 	cout << "Place left = " << PlaceLeft << endl;
 	cout << "Nb food = " << Food << endl;
 	cout << "Ennemy Power = " << EnemyPower << endl;
-	for (const pair<EffectCondition, int>* condition : *(action.Conditions))
+	for (const pair<EffectCondition, int>* condition : *(action.getConditions()))
 	{
 		switch (condition->first) {
 			case EC_FOOD:
@@ -122,7 +122,7 @@ void WorldState::Execution(const Action action)
 		}
 	}
 
-	for (const pair<EffectCondition, int>* effets : *(action.Effects))
+	for (const pair<EffectCondition, int>* effets : *(action.getEffects()))
 	{
 		switch (effets->first) {
 		case EC_FOOD:
@@ -155,33 +155,61 @@ void WorldState::Execution(const Action action)
 	}
 }
 
-const bool WorldState::CheckCondition(const Action action)
+const unsigned int WorldState::CheckAction(const Action action)
 {
-	for (const pair<EffectCondition, int>* condition : *(action.Conditions))
+	unsigned int Unfulfilledconditions = 0;
+	for (const pair<EffectCondition, int>* condition : *(action.getConditions()))
 	{
 		switch (condition->first) {
 		case EC_FOOD:
 			if (Food < condition->second)
-				return false;
+				Unfulfilledconditions += condition->second - Food;
 			break;
 		case EC_WOOD:
 			if(Wood < condition->second)
-				return false;
+				Unfulfilledconditions += condition->second - Wood;
 			break;
 		case EC_PLACE:
 			if(PlaceLeft < condition->second)
-				return false;
+				Unfulfilledconditions += condition->second - PlaceLeft;
 			break;
 		case EC_VIL:
 			if(Villager < condition->second)
-				return false;
+				Unfulfilledconditions += condition->second - Villager;
 			break;
 		case EC_POW:
-			if(EnemyPower > Power)
-				return false;
+			if(Power < EnemyPower)
+				Unfulfilledconditions += EnemyPower - Power;
 			break;
 
 		}
+	}
+	return true;
+}
+
+const bool WorldState::CheckCondition(const pair<EffectCondition, int>* condition)
+{
+	switch (condition->first) {
+	case EC_FOOD:
+		if (Food < condition->second)
+			return false;
+		break;
+	case EC_WOOD:
+		if (Wood < condition->second)
+			return false;
+		break;
+	case EC_PLACE:
+		if (PlaceLeft < condition->second)
+			return false;
+		break;
+	case EC_VIL:
+		if (Villager < condition->second)
+			return false;
+		break;
+	case EC_POW:
+		if (Power < EnemyPower)
+			return false;
+		break;
 	}
 	return true;
 }

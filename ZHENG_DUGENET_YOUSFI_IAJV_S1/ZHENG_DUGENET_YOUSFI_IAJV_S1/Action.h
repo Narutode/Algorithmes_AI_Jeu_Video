@@ -28,6 +28,6 @@ class Action
 		const int Cost;
 		Action(const string name, const list<pair<EffectCondition, int>*>* effects, const list<pair<EffectCondition, int>*>* conditions, int const cost)
 			: Name(name), Effects(effects), Conditions(conditions), Cost(cost) {};
-		const list<pair<EffectCondition, int>*>* getConditions();
-		const list<pair<EffectCondition, int>*>* getEffects() ;
+		const list<pair<EffectCondition, int>*>* getConditions() const;
+		const list<pair<EffectCondition, int>*>* getEffects() const;
 };
