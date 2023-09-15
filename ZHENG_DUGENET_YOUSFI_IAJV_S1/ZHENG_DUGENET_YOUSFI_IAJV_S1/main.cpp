@@ -11,21 +11,17 @@ int main(void)
 
 	WorldState* ws = new WorldState();
 	ws->init();
-	while(true) {
-		GOAP* goap = new GOAP(ws);
-		const Node* bestNode = goap->findBestAction();
-		ws->Execution(bestNode->action, true);
-		if (bestNode->action->Name == "Attack")
-			break;
-	}
+	GOAP* goap = new GOAP(ws);
+	const Node bestNode = goap->findBestAction();
+
+	ws->Execution(bestNode.action, true);
+
 
 	auto end = chrono::high_resolution_clock::now();
 
 	chrono::duration<double> elapsed = end - start;
 
 	cout << "Temps ecoule : " << elapsed.count() << " secondes" << endl;
-
-
 
 	return 0;
 }
